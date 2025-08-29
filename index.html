@@ -11,7 +11,12 @@
     <header>
       <h1>Guess My Number!</h1>
       <button class="btn again">Again!</button>
-      <button class="btn choose">Choose!</button>
+      <select name="Difficulty" class="btn choose">
+        <option value="" disabled selected hidden>Difficulty</option>
+        <option value="option1">Easy</option>
+        <option value="option2">Medium</option>
+        <option value="option3">Hard</option>
+      </select>
       <div class="number">?</div>
     </header>
     <main>
@@ -23,7 +28,7 @@
         <p class="message">Start guessing...</p>
         <p class="label-score">💯 lives: <span class="score">5</span></p>
         <p class="label-highscore">
-          🥇 Highscore: <span class="highscore">0</span>
+          🥇 Attempts: <span class="highscore">0</span>
         </p>
       </section>
     </main>

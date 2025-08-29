@@ -1,29 +1,44 @@
 'use strict';
 
-// let whatYear = function (year) {
-//   for (let index = 33; index > 2; index--) {
-//     year++;
-//     if (year === index) {
-//       console.log(year);
-//       break;
-//     }
-//   }
-// };
-// whatYear(2);
-
-// document.querySelector('.message').textContent = 'Correct Number!';
-
-// document.querySelector('.number').textContent = 13;
-
-// document.querySelector('.score').textContent = 10;
-
-// document.querySelector('.guess').value = 23;
 const winSound = new Audio('/mp3/kids-saying-yay-sound-effect_3.mp3');
 const loseSound = new Audio('/mp3/losing-horn-313723.mp3');
 
-let secretNumber = Math.trunc(Math.random() * 30) + 1;
 let score = 5;
 let clickCount = 0;
+let highscore = 0;
+let secretNumber;
+let currentRange = 20; // default range
+
+// Initialize secretNumber initially
+secretNumber = Math.trunc(Math.random() * currentRange) + 1;
+// document.querySelector('.number').textContent = secretNumber;
+
+const lose = function () {
+  document.querySelector('.message').textContent = 'You lost';
+  loseSound.currentTime = 0;
+  loseSound.play();
+  document.querySelector('.score').textContent = 0;
+  document.querySelector('body').style.backgroundColor = '#7a0000ff';
+};
+const loseLives = function () {
+  score--;
+  document.querySelector('.score').textContent = score;
+};
+
+document.querySelector('.choose').addEventListener('change', function () {
+  const difficulty = this.value;
+
+  if (difficulty === 'option1') {
+    currentRange = 20;
+  } else if (difficulty === 'option2') {
+    currentRange = 30;
+  } else if (difficulty === 'option3') {
+    currentRange = 40;
+  }
+
+  secretNumber = Math.trunc(Math.random() * currentRange) + 1;
+  console.log(`Difficulty set, secret number is ${secretNumber}`);
+});
 
 document.querySelector('.check').addEventListener('click', function () {
   const guess = Number(document.querySelector('.guess').value);
@@ -33,37 +48,30 @@ document.querySelector('.check').addEventListener('click', function () {
 
     // correct guess
   } else if (guess === secretNumber) {
+    document.querySelector('.number').textContent = secretNumber;
     document.querySelector('.message').textContent = 'Correct Number!';
     document.querySelector('body').style.backgroundColor = '#60b347';
     document.querySelector('.number').style.width = '30rem';
     document.querySelector('.number').textContent = secretNumber;
-    winSound.play();
     document.querySelector('.highscore').textContent = clickCount;
+    winSound.play();
     clickCount = 0;
 
     // high guess
   } else if (guess > secretNumber) {
     if (score > 1) {
       document.querySelector('.message').textContent = 'Too high!';
-      score--;
-      document.querySelector('.score').textContent = score;
+      loseLives();
     } else {
-      document.querySelector('.message').textContent = 'You lost';
-      loseSound.play();
-      document.querySelector('.score').textContent = 0;
-      document.querySelector('body').style.backgroundColor = '#7a0000ff';
+      lose();
     }
     // low guess
   } else if (guess < secretNumber) {
     if (score > 1) {
       document.querySelector('.message').textContent = 'Too low!';
-      score--;
-      document.querySelector('.score').textContent = score;
+      loseLives();
     } else {
-      document.querySelector('.message').textContent = 'You lost';
-      loseSound.play();
-      document.querySelector('.score').textContent = 0;
-      document.querySelector('body').style.backgroundColor = '#7a0000ff';
+      lose();
     }
   }
 });
@@ -76,5 +84,7 @@ document.querySelector('.again').addEventListener('click', function () {
   document.querySelector('.guess').value = '';
   document.querySelector('.number').style.width = '15rem';
   document.querySelector('.number').textContent = '?';
-  secretNumber = Math.trunc(Math.random() * 20) + 1;
+
+  secretNumber = Math.trunc(Math.random() * currentRange) + 1;
+  console.log(`New game, secret number is ${secretNumber}`);
 });
