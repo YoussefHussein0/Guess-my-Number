@@ -25,22 +25,7 @@ const loseLives = function () {
   document.querySelector('.score').textContent = score;
 };
 
-document.querySelector('.choose').addEventListener('change', function () {
-  const difficulty = this.value;
-
-  if (difficulty === 'option1') {
-    currentRange = 20;
-  } else if (difficulty === 'option2') {
-    currentRange = 30;
-  } else if (difficulty === 'option3') {
-    currentRange = 40;
-  }
-
-  secretNumber = Math.trunc(Math.random() * currentRange) + 1;
-  console.log(`Difficulty set, secret number is ${secretNumber}`);
-});
-
-document.querySelector('.check').addEventListener('click', function () {
+const gameStart = function () {
   const guess = Number(document.querySelector('.guess').value);
   clickCount++; //no input
   if (!guess) {
@@ -74,6 +59,31 @@ document.querySelector('.check').addEventListener('click', function () {
       lose();
     }
   }
+};
+
+document.querySelector('.choose').addEventListener('change', function () {
+  const difficulty = this.value;
+
+  if (difficulty === 'option1') {
+    currentRange = 20;
+  } else if (difficulty === 'option2') {
+    currentRange = 30;
+  } else if (difficulty === 'option3') {
+    currentRange = 40;
+  }
+
+  secretNumber = Math.trunc(Math.random() * currentRange) + 1;
+  console.log(`Difficulty set, secret number is ${secretNumber}`);
+});
+
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'Enter') {
+    gameStart();
+  }
+});
+
+document.querySelector('.check').addEventListener('click', function () {
+  gameStart();
 });
 
 document.querySelector('.again').addEventListener('click', function () {
