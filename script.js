@@ -40,6 +40,7 @@ const gameStart = function () {
     document.querySelector('.number').textContent = secretNumber;
     document.querySelector('.highscore').textContent = clickCount;
     winSound.play();
+    winSound.volume = 0.4;
     clickCount = 0;
 
     // high guess
