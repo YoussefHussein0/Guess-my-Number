@@ -80,14 +80,22 @@ h1 {
   position: absolute;
   top: 2rem;
   left: 2rem;
-  width: 25%;
+}
+
+.again,
+.choose {
+  font-size: 1rem;
+  padding: 0.6rem 1.2rem;
+  width: auto;
+  /* let content decide width */
+  position: absolute;
+  /* keep your original desktop layout */
 }
 
 .choose {
   position: absolute;
   top: 2rem;
   right: 2rem;
-  width: 28%;
 }
 
 .guess {
