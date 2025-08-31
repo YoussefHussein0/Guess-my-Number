@@ -80,12 +80,14 @@ h1 {
   position: absolute;
   top: 2rem;
   left: 2rem;
+  width: 25%;
 }
 
 .choose {
   position: absolute;
   top: 2rem;
   right: 2rem;
+  width: 28%;
 }
 
 .guess {

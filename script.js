@@ -2,6 +2,7 @@
 
 const winSound = new Audio('/mp3/kids-saying-yay-sound-effect_3.mp3');
 const loseSound = new Audio('/mp3/losing-horn-313723.mp3');
+const clickSound = new Audio('/mp3/mixkit-arcade-game-jump-coin-216.mp3');
 
 let score = 5;
 let clickCount = 0;
@@ -28,6 +29,7 @@ const loseLives = function () {
 const gameStart = function () {
   const guess = Number(document.querySelector('.guess').value);
   clickCount++; //no input
+  clickSound.play();
   if (!guess) {
     document.querySelector('.message').textContent = 'No Number!';
 
@@ -40,7 +42,7 @@ const gameStart = function () {
     document.querySelector('.number').textContent = secretNumber;
     document.querySelector('.highscore').textContent = clickCount;
     winSound.play();
-    winSound.volume = 0.4;
+    winSound.volume = 0.2;
     clickCount = 0;
 
     // high guess
@@ -63,8 +65,10 @@ const gameStart = function () {
 };
 
 document.querySelector('.choose').addEventListener('change', function () {
-  const difficulty = this.value;
+  clickSound.play();
 
+  const difficulty = this.value;
+  clickSound.play();
   if (difficulty === 'option1') {
     currentRange = 20;
   } else if (difficulty === 'option2') {
@@ -80,6 +84,7 @@ document.querySelector('.choose').addEventListener('change', function () {
 document.addEventListener('keydown', function (e) {
   if (e.key === 'Enter') {
     gameStart();
+    clickSound.play();
   }
 });
 
